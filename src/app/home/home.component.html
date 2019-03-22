@@ -1,0 +1,54 @@
+<mat-toolbar color="primary">
+
+  <mat-toolbar-row>
+      <div>
+        <span>User name: {{user?.name}}</span>
+        <br/>
+        <span>Current balance: {{user?.balance}} PW</span>
+      </div>
+      <span class="spacing"></span>
+      <div class="test">
+        <button type="button" class="" mat-raised-button (click)="logout()">Log Out</button>
+      </div>
+
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+<div class="content-container">
+  <div class="table-wrapper">
+    <div class="d-flex justify-content-between">
+      <div class="align-self-center">RECENT TRANSACTIONS</div>
+      <button mat-raised-button color="accent" (click)="createTranzaction()">New transaction</button>
+    </div>
+    <table mat-table matSort [dataSource]="transactions">
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+        <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date | date: 'dd.MM.yyyy HH:mm:ss'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="balance">
+        <th mat-header-cell *matHeaderCellDef> Resulting balance </th>
+        <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr class="pointer" (click)="createTranzaction(row)" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+
+

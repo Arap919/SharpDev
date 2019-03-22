@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+.content-container {
+  width: 100vw;
+  padding: 10px 15px;
+}
+
+.table-wrapper, .table-wrapper > table {
+  width: 100%;
+}
+.pointer {
+  cursor: pointer;
+}
+.test {
+  padding: 0 14px;
+}
+.spacing {
+  flex: 1 1 auto;
+}
+.row {
+  margin: 0;
+}
+.confirm-btn.mat-raised-button, .dialog-btn {
+  margin-top: 15px;
+}
