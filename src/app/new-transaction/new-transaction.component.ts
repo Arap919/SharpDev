@@ -25,15 +25,6 @@ export class NewTransactionComponent implements OnInit {
       name: [this.data.transact ? this.data.transact.username : '', Validators.required],
       amount: [this.data.transact ? -(this.data.transact.amount) : '', Validators.compose([Validators.required, Validators.max(this.data.balance)])]
     });
-    this.getUserRecipients();
-  }
-
-  getUserRecipients() {
-    this.apiService.postJSON('api/protected/users/list', {}).subscribe(data => {
-      this.users = data;
-    }, error => {
-      console.log();
-    });
   }
 
   create() {
@@ -46,6 +37,18 @@ export class NewTransactionComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  doFilter(val) {
+    this.apiService.postJSON('api/protected/users/list', {name: val}).subscribe(searchResult => {
+      this.users = this.filter(searchResult);
+    });
+  }
+
+  filter(values) {
+    return values.filter(searchResultItem => {
+      return searchResultItem.name.toLowerCase().includes(this.newTransact.value.name.toLocaleLowerCase());
+    });
   }
 
 }

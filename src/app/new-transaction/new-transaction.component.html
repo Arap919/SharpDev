@@ -1,7 +1,7 @@
 <form [formGroup]="newTransact" novalidate class="text-center">
   <div>
     <mat-form-field>
-      <input formControlName="name" placeholder="Recipient" matInput [matAutocomplete]="auto">
+      <input formControlName="name" placeholder="Recipient" matInput [matAutocomplete]="auto" (keyup)="doFilter(newTransact.value.name)">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let user of users" [value]="user.name">
           {{user.name}}
