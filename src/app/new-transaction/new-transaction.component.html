@@ -1,13 +1,14 @@
-<form [formGroup]="newTransact" novalidate class="text-center">
+<form [formGroup]="newTransact" novalidate class="text-center full-width full-height position-relative">
   <div>
     <mat-form-field>
-      <input formControlName="name" placeholder="Recipient" matInput [matAutocomplete]="auto" (keyup)="doFilter(newTransact.value.name)">
+      <input formControlName="name" placeholder="Recipient" matInput [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let user of users" [value]="user.name">
           {{user.name}}
         </mat-option>
       </mat-autocomplete>
       <mat-error *ngIf="newTransact.controls.name.errors?.required">Mandatory field</mat-error>
+      <mat-error *ngIf="newTransact.controls.name.errors?.pattern">Can't send yourself</mat-error>
     </mat-form-field>
   </div>
 
@@ -16,10 +17,11 @@
       <input formControlName="amount" placeholder="Amount" matInput/>
       <mat-error *ngIf="newTransact.controls.amount.errors?.required">Mandatory field</mat-error>
       <mat-error *ngIf="newTransact.controls.amount.errors?.max">Amount need less then current balance</mat-error>
+      <mat-error *ngIf="newTransact.controls.amount.errors?.pattern">Amount must be a positive decimal number with 2 digits after point or an integer</mat-error>
     </mat-form-field>
   </div>
-  <div class="dialog-btn d-flex justify-content-between">
+  <div class="position-absolute dialog-btn d-flex justify-content-between">
     <button type="button" color="primary" mat-raised-button (click)="close()">Close</button>
-    <button type="button" color="accent" mat-raised-button (click)="create()">Create</button>
+    <button type="button" [disabled]="newTransact.invalid" color="accent" mat-raised-button (click)="create()">Create</button>
   </div>
 </form>

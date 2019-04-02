@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(NewTransactionComponent, {
       height: '300px',
       width: '300px',
-      data: row ? {balance: this.user.balance, transact: row} : {balance: this.user.balance},
+      data: row ? {balance: this.user.balance, transact: row, userName: this.user.name} : {balance: this.user.balance},
     });
 
     dialogRef.afterClosed().subscribe(res => {
